@@ -1,43 +1,37 @@
 #include <stdio.h>
 
 /**
- *main - print a num pair from 00-99 but no repeats (00 01, 00 02, 00 03,...)
- *Return: Always 0
- */
+ *main - Writes combinations of 00-99
+ *Description: Writes all unique combinations of 2 digit numbers
+ *
+ *Return: 0 for success
+*/
 
 int main(void)
 {
-	int tens;
-	int ones;
 	int i;
 	int j;
 
-	for (tens = '0'; tens <= '9'; tens++) /*print first two digit combo*/
+	for (i = 0; i <= 99; i++)
 	{
-		for (ones = '0'; ones <= '9'; ones++)
+		for (j = 0; j <= 99; j++)
 		{
-			for (i = tens; i <= '9'; i++) /*print second of pair*/
+			if (i < j)
 			{
-				for (j = ones + 1; j <= '9'; j++)
-				{
-					putchar(tens);
-					putchar(ones);
-					putchar(' ');
-					putchar(i);
-					putchar(j);
+				putchar((i / 10) + '0');
+				putchar((i % 10) + '0');
+				putchar(' ');
+				putchar((j / 10) + '0');
+				putchar((j % 10) + '0');
 
-					if (!((tens == '9' && ones == '8') &&
-					      (i == '9' && j == '9')))
-					{
-						putchar(',');
-						putchar(' ');
-					}
+				if (i != 98 || j != 99)
+				{
+					putchar(',');
+					putchar(' ');
 				}
-				j = '0';
 			}
 		}
 	}
 	putchar('\n');
-
 	return (0);
 }
