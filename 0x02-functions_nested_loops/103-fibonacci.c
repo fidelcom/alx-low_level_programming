@@ -9,43 +9,23 @@
 
 int main(void)
 {
-	int count;
-	unsigned long x, y, z, a, b, c, carry;
+	int sum_of_evens = 0;
+	int a;
+	int b;
+	int sum = 1;
 
-	x = 0;
-	y = 1;
+	a = 1;
+	b = 1;
 
-	for (count = 1; count <= 90; count++)
+	while (b < 4000000)
 	{
-		z = x + y;
-		x = y;
-		y = z;
-		printf("%lu, ", z);
-	}
-
-	a = x % 1000;
-	x = x / 1000;
-	b = y % 1000;
-	y = y / 1000;
-
-	while (count <= 98)
-	{
-		carry = (a + b) / 1000;
-		c = (a + b) - carry * 1000;
-		z = (x + y) + carry;
-		x = y;
-		y = z;
+		sum = a + b;
 		a = b;
-		b = c;
-
-		if (c >= 100)
-			printf("%lu%lu", z, c);
-		else
-			printf("%lu0%lu", z, c);
-		if (count < 98)
-			printf(", ");
-		count++;
+		b = sum;
+		if ((sum <= 4000000) && (sum % 2 == 0))
+			sum_of_evens += sum;
 	}
-	putchar('\n');
+	printf("%d\n", sum_of_evens);
+
 	return (0);
 }
