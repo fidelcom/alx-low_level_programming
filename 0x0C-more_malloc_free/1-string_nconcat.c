@@ -9,9 +9,9 @@
 
 unsigned int string_length(char *s)
 {
-	int i, len = 0;
+	int len = 0;
 
-	for (i = 0; s[i] != '\0'; i++)
+	while (s && s[len])
 	{
 		len++;
 	}
