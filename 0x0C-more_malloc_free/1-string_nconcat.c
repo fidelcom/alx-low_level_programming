@@ -13,7 +13,7 @@ unsigned int string_length(char *s)
 
 	for (i = 0; s[i] != '\0'; i++)
 	{
-		len = len + 1;
+		len++;
 	}
 	return (len);
 }
@@ -29,18 +29,23 @@ unsigned int string_length(char *s)
 char *string_nconcat(char *s1, char *s2, unsigned int n)
 {
 	char *p;
-	unsigned int i, j;
+	unsigned int i, j = 0, l1, l2;
 
-	if (n < string_length(s2))
-		p = malloc(sizeof(char) * (string_length(s1) + n + 1));
+	l1 = string_length(s1);
+	l2 = string_length(s2);
+
+	if (n < l2)
+		p = malloc(sizeof(char) * (l1 + n + 1));
 	else
-		p = malloc(sizeof(char) * (string_length(s1) + string_length(s2) + 1));
-	if (p == NULL)
+		p = malloc(sizeof(char) * (l1 + l2 + 1));
+	if (!p)
 		return (NULL);
-	for (i = 0; i < string_length(s1); i++)
+	for (i = 0; i < l1; i++)
 		p[i] = s1[i];
-	for (j = 0; n < string_length(s2) && i < (string_length(s1) + n); j++)
-		p[i++] = s2[j];
+	while (n < l2 && i < (l1 + n))
+		p[i++] = s2[j++];
+	while (n >= l2 && i < (l1 + l2))
+		p[i++] = s2[j++];
 	p[i] = '\0';
 	return (p);
 }
