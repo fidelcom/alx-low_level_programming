@@ -1,179 +1,176 @@
 #include "main.h"
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 /**
- * find_len - function to find the length of a string
- * @str: input string.
+ * _strlen - function to get length of a string.
+ * @s: string to evaluate.
  *
- * Return: length.
+ * Return: String length.
  */
-int find_len(char *str)
+int _strlen(char *s)
 {
 	int len = 0;
 
-	while (*str++)
+	while (*s++)
 		len++;
 
 	return (len);
 }
 
 /**
- * create_xarray - function that create array of string.
+ * char_array - function to create array of chars
  * @size: The size of the array to be initialized.
- * Return: pointer.
+ * Return: A pointer to the array.
  */
-char *create_xarray(int size)
+char *char_array(int size)
 {
-	char *array;
-	int index;
+	char *arr;
+	int i;
 
-	array = malloc(sizeof(char) * size);
+	arr = malloc(sizeof(char) * size);
 
-	if (array == NULL)
+	if (arr == NULL)
 		exit(98);
 
-	for (index = 0; index < (size - 1); index++)
-		array[index] = 'x';
+	for (i = 0; i < (size - 1); i++)
+		arr[i] = '0';
 
-	array[index] = '\0';
+	arr[i] = '\0';
 
-	return (array);
+	return (arr);
 }
 
 /**
- * iterate_zeroes - function that get non zero string
- * @str: input string
+ * get_val - function to get non zero
+ * @s: The string of numbers to be iterate through.
  *
  * Return: A pointer to the next non-zero element.
  */
-char *iterate_zeroes(char *str)
+char *get_val(char *s)
 {
-	while (*str && *str == '0')
-		str++;
+	while (*s && *s == '0')
+		s++;
 
-	return (str);
+	return (s);
 }
 
 /**
- * get_digit - function that changes char to string.
- * @c: String.
- *
- * Return: int value.
+ * _atoi - function that changes char to int.
+ * @c: character.
+ * Return: integer value.
  */
-int get_digit(char c)
+int _atoi(char c)
 {
-	int digit = c - '0';
+	int n = c - '0';
 
-	if (digit < 0 || digit > 9)
+	if (n < 0 || n > 9)
 	{
 		printf("Error\n");
 		exit(98);
 	}
 
-	return (digit);
+	return (n);
 }
 
 /**
- * get_prod - function that multiply input.
- * @prod: store the result.
- * @mult: string of numbers.
- * @digit: single digit.
- * @zeroes: zero input.
- *
+ * _mul - function that multiply an input with a constant value
+ * @result: store the result.
+ * @n: string of numbers.
+ * @digit: The single digit.
+ * @zeroes: The necessary number of leading zeroes.
  */
-void get_prod(char *prod, char *mult, int digit, int zeroes)
+void _mul(char *result, char *n, int digit, int zeroes)
 {
-	int mult_len, num, tens = 0;
+	int len, num, val = 0;
 
-	mult_len = find_len(mult) - 1;
-	mult += mult_len;
+	len = _strlen(n) - 1;
+	n += len;
 
-	while (*prod)
+	while (*result)
 	{
-		*prod = 'x';
-		prod++;
+		*result = 'x';
+		result++;
 	}
 
-	prod--;
+	result--;
 
 	while (zeroes--)
 	{
-		*prod = '0';
-		prod--;
+		*result = '0';
+		result--;
 	}
 
-	for (; mult_len >= 0; mult_len--, mult--, prod--)
+	for (; len >= 0; len--, n--, result--)
 	{
-		if (*mult < '0' || *mult > '9')
+		if (*n < '0' || *n > '9')
 		{
 			printf("Error\n");
 			exit(98);
 		}
 
-		num = (*mult - '0') * digit;
-		num += tens;
-		*prod = (num % 10) + '0';
-		tens = num / 10;
+		num = (*n - '0') * digit;
+		num += val;
+		*result = (num % 10) + '0';
+		val = num / 10;
 	}
 
-	if (tens)
-		*prod = (tens % 10) + '0';
+	if (val)
+		*result = (val % 10) + '0';
 }
 
 /**
- * add_nums - function that add two number
- * @final_prod: result
- * @next_prod: product
- * @next_len: length of product
+ * sum_nums - sum numbers stored in two strings.
+ * @result: result of the sum.
+ * @sum: sum to be added.
+ * @len: length.
  */
-void add_nums(char *final_prod, char *next_prod, int next_len)
+void sum_nums(char *result, char *sum, int len)
 {
-	int num, tens = 0;
+	int num, val = 0;
 
-	while (*(final_prod + 1))
-		final_prod++;
+	while (*(result + 1))
+		result++;
 
-	while (*(next_prod + 1))
-		next_prod++;
+	while (*(sum + 1))
+		sum++;
 
-	for (; *final_prod != 'x'; final_prod--)
+	for (; *result != 'x'; result--)
 	{
-		num = (*final_prod - '0') + (*next_prod - '0');
-		num += tens;
-		*final_prod = (num % 10) + '0';
-		tens = num / 10;
+		num = (*result - '0') + (*sum - '0');
+		num += val;
+		*result = (num % 10) + '0';
+		val = num / 10;
 
-		next_prod--;
-		next_len--;
+		sum--;
+		len--;
 	}
 
-	for (; next_len >= 0 && *next_prod != 'x'; next_len--)
+	for (; len >= 0 && *sum != 'x'; len--)
 	{
-		num = (*next_prod - '0');
-		num += tens;
-		*final_prod = (num % 10) + '0';
-		tens = num / 10;
+		num = (*sum - '0');
+		num += val;
+		*result = (num % 10) + '0';
+		val = num / 10;
 
-		final_prod--;
-		next_prod--;
+		result--;
+		sum--;
 	}
 
-	if (tens)
-		*final_prod = (tens % 10) + '0';
+	if (val)
+		*result = (val % 10) + '0';
 }
 
 /**
- * main - function that multiplies two positive numbers.
+ * main - function that multiply two positive numbers.
  * @argv: array argument.
- * @argc: arguments.
- *
+ * @argc: argument.
  * Return: Always 0.
  */
 int main(int argc, char *argv[])
 {
-	char *final_prod, *next_prod;
-	int size, index, digit, zeroes = 0;
+	char *result, *p;
+	int size, i, n, zeroes = 0;
 
 	if (argc != 3)
 	{
@@ -182,34 +179,34 @@ int main(int argc, char *argv[])
 	}
 
 	if (*(argv[1]) == '0')
-		argv[1] = iterate_zeroes(argv[1]);
+		argv[1] = get_val(argv[1]);
 	if (*(argv[2]) == '0')
-		argv[2] = iterate_zeroes(argv[2]);
+		argv[2] = get_val(argv[2]);
 	if (*(argv[1]) == '\0' || *(argv[2]) == '\0')
 	{
 		printf("0\n");
 		return (0);
 	}
 
-	size = find_len(argv[1]) + find_len(argv[2]);
-	final_prod = create_xarray(size + 1);
-	next_prod = create_xarray(size + 1);
+	size = _strlen(argv[1]) + _strlen(argv[2]);
+	result = char_array(size + 1);
+	p = char_array(size + 1);
 
-	for (index = find_len(argv[2]) - 1; index >= 0; index--)
+	for (i = _strlen(argv[2]) - 1; i >= 0; i--)
 	{
-		digit = get_digit(*(argv[2] + index));
-		get_prod(next_prod, argv[1], digit, zeroes++);
-		add_nums(final_prod, next_prod, size - 1);
+		n = _atoi(*(argv[2] + i));
+		_mul(p, argv[1], n, zeroes++);
+		sum_nums(result, p, size - 1);
 	}
-	for (index = 0; final_prod[index]; index++)
+	for (i = 0; result[i]; i++)
 	{
-		if (final_prod[index] != 'x')
-			putchar(final_prod[index]);
+		if (result[i] != 'x')
+			putchar(result[i]);
 	}
 	putchar('\n');
 
-	free(next_prod);
-	free(final_prod);
+	free(p);
+	free(result);
 
 	return (0);
 }
