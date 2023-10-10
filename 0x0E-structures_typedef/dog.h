@@ -3,7 +3,7 @@
 
 
 /**
- * dog_t - data type dog_t made with typedef
+ * dog_t - Typedef for struct dog
  */
 typedef struct dog dog_t;
 
