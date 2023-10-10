@@ -16,7 +16,7 @@ void print_dog(struct dog *d)
 	{
 		printf("nil\n");
 	}
-	if (d->age < 0 || !d->age)
+	if (!d->age)
 	{
 		printf("nil\n");
 	}
