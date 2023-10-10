@@ -1,6 +1,12 @@
 #ifndef DOG_H
 #define DOG_H
 
+
+/**
+ * dog_t - data type dog_t made with typedef
+ */
+typedef struct dog dog_t;
+
 /**
  * struct dog - new data type struck
  * @name: dog name
@@ -13,12 +19,6 @@ struct dog
 	float age;
 	char *owner;
 };
-
-/**
- * dog_t - new data type of struct
- */
-
-typedef struct dog dog_t;
 
 void init_dog(struct dog *d, char *name, float age, char *owner);
 void print_dog(struct dog *d);
