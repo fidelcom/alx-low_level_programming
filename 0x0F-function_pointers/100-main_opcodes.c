@@ -12,7 +12,7 @@ void print_opcodes(int number_bytes)
 
 	for (i = 0; i < number_bytes; i++)
 	{
-		printf("%.2hhx", ptr[i]);
+		printf("%.2x", ptr[i]);
 		if (i < number_bytes - 1)
 		{
 			printf(" ");
