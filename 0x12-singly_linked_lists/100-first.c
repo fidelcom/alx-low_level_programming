@@ -3,7 +3,7 @@
 #include "lists.h"
 void first_print(void) __attribute__((constructor));
 /**
-* printFirst - function that prints before main is exectuted
+* first_print - function that prints before main is exectuted
 */
 
 void first_print(void)
