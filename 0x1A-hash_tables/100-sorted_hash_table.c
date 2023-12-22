@@ -88,7 +88,7 @@ int insert_to_sorted_list(shash_table_t *ht, shash_node_t *node)
  * Return: 1 if success, 0 if fail
  */
 int create_and_add_node(shash_table_t *ht, const char *key, const char *value,
-			unsigned long int idx)
+		unsigned long int idx)
 {
 	shash_node_t *node = NULL;
 	char *k;
